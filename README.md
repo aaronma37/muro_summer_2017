@@ -15,6 +15,8 @@ cd ~/catkin_ws/src
 
 git clone https://github.com/aaronma37/muro_summer_2017.git
 
+cd /muro_summer_2017
+
 git fetch (enter username and password)
 
 #---create branch
