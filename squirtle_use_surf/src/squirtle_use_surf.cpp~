@@ -13,18 +13,30 @@ int main(int argc, char **argv)
 { 
    double		cVal;
  
- 
-   ros::init(argc, argv, "squirtle_use_surf");
-   ros::NodeHandle n;
- 
-   ros::Subscriber DesPose_sub = n.subscribe("/turtle1/PositionCommand", 5, DesiredPose);
-   ros::Subscriber CurPose_sub = n.subscribe("/turtle1/pose", 5, CurrentPose);
-   ros::Publisher Twist_pub = n.advertise<turtlesim::Velocity>("/turtle1/command_velocity", 100);
-   
-   ros::spin();
-  
+   // assigns the constant for the controller
    cout << "What constant would you like? "
    cin >> cVal;
+   
+   cout << cVal << endl;
+   
+   // connects to roscore
+   ros::init(argc, argv, "squirtle_use_surf");
+   
+   // node object declaration
+   ros::NodeHandle n;
+   
+   // Subscriber to obtain desired position commands   
+   ros::Subscriber DesPose_sub = n.subscribe("/turtle1/PositionCommand", 5, DesiredPose);
+   
+   // Subscriber to obtain current position
+   ros::Subscriber CurPose_sub = n.subscribe("/turtle1/pose", 5, CurrentPose);
+   
+   // Publisher to send command velocity
+   ros::Publisher Twist_pub = n.advertise<turtlesim::Velocity>("/turtle1/command_velocity", 100);
+   
+   // checks for incoming messages
+   ros::spin();
+  
    
 }
 

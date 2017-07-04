@@ -1,0 +1,16 @@
+
+*** These modified files were found in JOE when it aborted on Mon Jul  3 22:39:37 2017
+*** JOE was aborted by UNIX signal 1
+
+*** File '(Unnamed)'
+listener.py
+talker.py
++x
+talker.py
+squirtle_src.cpp
+README.md
+squirtle_use_surf.cpp
+squirtle_use_surf.cpp
+squirtle_use_surf.cpp
+squirtle_use_surf.cpp
+squirtle_use_surf.cpp
