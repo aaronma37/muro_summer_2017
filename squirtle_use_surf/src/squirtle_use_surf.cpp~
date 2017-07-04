@@ -20,7 +20,7 @@ int main(int argc, char **argv)
    double	cVal;
  
    // assigns the constant for the controller
-   cout << "What constant value would you like? "
+   cout << "What constant value would you like? "; 
    cin >> cVal;
    
    cout << cVal << endl;
@@ -49,14 +49,14 @@ int main(int argc, char **argv)
          ros::spinOnce();
          if (STOP = false)
          {
-               cout << "Processing...\n");
+               cout << "Processing...\n";
                Twist_pub.publish(VEL);
          }
          else
          {
-               cout << "Waiting...\n");
+               cout << "Waiting...\n";
          }
-         loop_rate.sleep();
+         rate.sleep();
    }
 }   
    

@@ -1,3 +1,4 @@
+#include <iostream>
 #include "ros/ros.h"
 #include "geometry_msgs/Pose2D.h"
 #include "turtlesim/Pose.h"
@@ -25,7 +26,7 @@ int main(int argc, char **argv)
    
    cout << cVal << endl;
    
-   // connects to roscore
+   // runs roscore
    ros::init(argc, argv, "squirtle_use_surf");
    
    // node object declaration
@@ -56,7 +57,7 @@ int main(int argc, char **argv)
          {
                cout << "Waiting...\n";
          }
-         loop_rate.sleep();
+         rate.sleep();
    }
 }   
    
