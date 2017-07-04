@@ -1,7 +1,7 @@
 #include "ros/ros.h"
 #include "geometry_msgs/Pose2D.h"
 #include "turtlesim/Pose.h"
-#include "turtlesim/Velocity.h"
+#include "geometry_msgs/Twist.h"
 ros::Publisher velocity_publisher;
 using namespace std;
 
@@ -9,12 +9,18 @@ using namespace std;
 void DesiredPose(const geometry_msgs::Pose2D::ConstPtr& msg);
 void CurrentPose(const turtlesim::Pose::ConstPtr& msg);
 
+// global variables
+bool STOP = true;
+geometry_msgs::Twist	VEL;
+turtlesim::Pose		CURRENT; 
+geometry_msgs::Pose2D	DESIRED;
+
 int main(int argc, char **argv)
 { 
-   double		cVal;
+   double	cVal;
  
    // assigns the constant for the controller
-   cout << "What constant would you like? "
+   cout << "What constant value would you like? "
    cin >> cVal;
    
    cout << cVal << endl;
@@ -32,27 +38,48 @@ int main(int argc, char **argv)
    ros::Subscriber CurPose_sub = n.subscribe("/turtle1/pose", 5, CurrentPose);
    
    // Publisher to send command velocity
-   ros::Publisher Twist_pub = n.advertise<turtlesim::Velocity>("/turtle1/command_velocity", 100);
+   ros::Publisher Twist_pub = n.advertise<geometry_msgs::Twist>("/turtle1/cmd_vel", 100);
+   
+   // Loop Frequency (Hz)
+   ros::Rate rate(15);
+   
+   ROS_INFO("Ready to send position commands");
+   while (ros::ok() && n.ok())
+   {
+         ros::spinOnce();
+         if (STOP = false)
+         {
+               cout << "Processing...\n");
+               Twist_pub.publish(VEL);
+         }
+         else
+         {
+               cout << "Waiting...\n");
+         }
+         loop_rate.sleep();
+   }
+}   
+   
+   
    
    // checks for incoming messages
-   ros::spin();
+ //  ros::spin();
   
    
-}
 
 void DesiredPose(const geometry_msgs::Pose2D::ConstPtr& msg)
 {
    STOP = false;
-   DesPose.x = msg->x;
-   DesPose.y = msg->y;
-   CmdVel.angular += 1;
+   DESIRED.x = msg->x;
+   DESIRED.y = msg->y;
+   VEL.angular += 1;
    return;
 }
 
 void CurrentPose(const turtlesim::Pose::ConstPtr& msg)
 {
-   CurPose.x = msg->x;
-   CurPose.y = msg->y;
-   CurPose.theta = msg->theta;
+   CURRENT.x = msg->x;
+   CURRENT.y = msg->y;
+   CURRENT.theta = msg->theta;
    return;
 }
