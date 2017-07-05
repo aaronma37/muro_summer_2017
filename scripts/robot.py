@@ -33,17 +33,21 @@ class robot():
         #define ctrl_val instance
         pose_val = Pose()
         xl=0;
-        tolerance = 0.0005
+        #ul = 0
+        #tolerance = 0.0005
         #ctrl_val loop running @ 10Hz
         while not rospy.is_shutdown():#abs(self.ctrl_val.ref-pose_val.x) >= tolerance: #(not rospy.is_shutdown()) or (ul != self.ctrl_val.u):
             #Compute ctrl_val
             #ctrl_val.u = kp*(ref_pose.x-self.pose.x)
             #publish ctrl_val
+            #if ul != self.ctrl_val.u:
             pose_val.x=xl+self.ctrl_val.u
+            #else:
+                #pose_val.x=xl
             self.pose_pub.publish(pose_val)
             rospy.loginfo("Actual x_position_value: %f" % (pose_val.x))
             xl=pose_val.x
-            ul=self.ctrl_val.u
+            #ul=self.ctrl_val.u
             self.rate.sleep()
         # stops
         #ctrl_val.u=0

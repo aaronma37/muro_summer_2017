@@ -43,7 +43,9 @@ class controller():
         # stops
         #ctrl_val.u=0
         #self.control_pub.publish(ctrl_val)
-#keep the node running until stop
+#keep the node running until stop.
+        ctrl_val.u = 0
+        self.control_pub.publish(ctrl_val)
         rospy.spin()
 #main function
 if __name__ == '__main__':
