@@ -6,20 +6,14 @@ ros::Publisher velocity_publisher;
 using namespace std;
 
 // function prototypes
-void Velocity(
+void Velocity(speed);
 
 // global variables
 geometry_msgs::Twist	VEL;
-geometry_msgs::Pose2D	DESIRED, CURRENT;
+geometry_msgs::Pose2D	CURRENT;
 
 int main(int argc, char **argv)
 { 
-   double	cVal;
- 
-   // assigns the constant for the controller
-   cout << "What constant value would you like? "; 
-   cin >> cVal;
-   cout << cVal << endl;
    
    // runs roscore
    ros::init(argc, argv, "squirtle_use_surf_robot");
@@ -55,13 +49,5 @@ void Velocity(speed)
    vel.angular.y = 0;
    vel.angular.z = 0;
    
-   double t0 = ros::Time::now().toSec();
-   double current_distance;
-   ros::Rate rate(10);
-   
-   velocity_publisher.publish(vel);
-   double t1 = ros::Time::now().toSec();
-   current_distance = speed * (t1 - t0);
-   ros::spinOnce();
 }
    

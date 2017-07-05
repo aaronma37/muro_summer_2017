@@ -6,7 +6,7 @@ ros::Publisher velocity_publisher;
 using namespace std;
 
 // function prototypes
-void Velocity
+void Velocity(
 
 // global variables
 geometry_msgs::Twist	VEL;
@@ -22,7 +22,7 @@ int main(int argc, char **argv)
    cout << cVal << endl;
    
    // runs roscore
-   ros::init(argc, argv, "squirtle_use_surf");
+   ros::init(argc, argv, "squirtle_use_surf_robot");
    
    // node object declaration
    ros::NodeHandle n;
@@ -44,5 +44,24 @@ int main(int argc, char **argv)
    // checks for incoming messages
  //  ros::spin();
   
+void Velocity(speed)
+{
+   geometry_msgs::Twist vel;   
+   vel.linear.x = speed;
+   vel.linear.y = 0;
+   vel.linear.z = 0;
    
-
+   vel.angular.x = 0;
+   vel.angular.y = 0;
+   vel.angular.z = 0;
+   
+   double t0 = ros::Time::now().toSec();
+   double current_distance;
+   ros::Rate rate(10);
+   
+   velocity_publisher.publish(vel);
+   double t1 = ros::Time::now().toSec();
+   current_distance = speed * (t1 - t0);
+   ros::spinOnce();
+}
+   
