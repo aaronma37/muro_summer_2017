@@ -1,16 +1,17 @@
 #include <iostream>
 #include "ros/ros.h"
-#include "geometry_msgs/Pose2D.h"
+#include "geometry_msgs/Pose.h"
 #include "geometry_msgs/Twist.h"
-ros::Publisher velocity_publisher;
 using namespace std;
 
 // function prototypes
-void Velocity(speed);
+void Velocity(geometry_msgs::Twist vel);
+void CurrPose(geometry_msgs::Pose::ConstPtr& msg);
 
 // global variables
-geometry_msgs::Twist	VEL;
-geometry_msgs::Pose2D	CURRENT;
+ros::Subscriber Velocity_sub;
+ros::Publisher Pose_pub;
+geometry_msgs::Pose CURRENT;
 
 int main(int argc, char **argv)
 { 
@@ -25,12 +26,20 @@ int main(int argc, char **argv)
    ros::Subscriber Velocity_sub = n.subscribe("Velocity", 100, Velocity);
    
    // Publishes the robot's position
-   ros::Publisher Pose_pub = n.advertise<geometry_msgs::Pose2D>("Pose", 100);
+   ros::Publisher Pose_pub = n.advertise<geometry_msgs::Pose>("Pose", 100);
    
    // Loop Frequency (Hz)
    ros::Rate rate(10);
    
-  
+   while (ros::ok())
+      {
+      ros::spinOnce();
+      CurrPose();
+      Velocity();
+      rate.sleep();
+      }
+      
+   return 0;      
 }   
    
    
@@ -38,9 +47,9 @@ int main(int argc, char **argv)
    // checks for incoming messages
  //  ros::spin();
   
-void Velocity(speed)
+void Velocity(geometry_msgs::Twist vel)
 {
-   geometry_msgs::Twist vel;   
+   
    vel.linear.x = speed;
    vel.linear.y = 0;
    vel.linear.z = 0;
@@ -51,3 +60,12 @@ void Velocity(speed)
    
 }
    
+void CurrPose(const geometry_msgs::Pose::ConstPtr& msg)
+{
+  CURRENT.x = msg -> x;
+  CURRENT.y = msg -> y;
+  CURRENT.theta = msg -> theta;
+  Pose_pub.publish(CURRENT);
+  
+  cout << CURRENT.x << endl;
+}

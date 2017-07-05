@@ -1,30 +1,35 @@
 #include <iostream>
 #include "ros/ros.h"
 #include "geometry_msgs/Twist.h"
-#include "geometry_msgs/Pose2D.h"
+#include "geometry_msgs/Pose.h"
 using namespace std;
 
 // function prototypes
-void CurrPose(const geometry_msgs::Pose2D::ConstPtr& msg);
-void Speed(geometry_msgs::Pose2D current);
+void Speed();
+double Error();
+void CurrPose(const geometry_msgs::Pose::ConstPtr& msg);
 
 // global variables
 ros::Subscriber Pose_sub;
 ros::Publisher  Velocity_pub;
+double 		d0;
+double		k;
+geometry_msgs::Pose CURRENT;
 
 int main(int argc, char **argv)
 {
-  double	d0;
-  double	k;
-  
+  // runs roscore
   ros::init(argc, argv, "squirtle_use_surf_control");
   
+  // node object declaration 
   ros::NodeHandle n;
   
-  cout << "Where would you like to go? \n";
+  // prompts user for a desired position
+  cout << "Where would you like to go? ";
   cin >> d0; 
   
-  cout << "Choose a constant: ";
+  // prompts user for a proportionality constant  
+  cout << "Enter a constant: ";
   cin >> k; 
 
   // Subscribes to robot's position
@@ -36,24 +41,47 @@ int main(int argc, char **argv)
   // Loop rate
   ros::Rate rate(10);
   
-  // calculates the speed to be published
-  speed(CurrPose);
+  ROS_INFO("Ready to send speed");
+  while(ros::ok())
+    {
+    ros::spinOnce();
+    
+    // calculates the speed to be published
+    Speed();
+    rate.sleep();
+    }
+  
+  return 0;	
 }
 
-void Speed(geometry_msgs::Pose2D current)
+void Speed()
 {	
-  double error;
+  double errorVal;
+  double speed;
   
-  error = current.x - d0;
-  cout << error << endl;
-  speed = k * error;      
+  // calls the Error function and catches the return value
+  errorVal = Error();
+  cout << errorVal << endl;
+  
+  // calculates the speed based on the velocity
+  speed = k * errorVal;      
+  
+  // displays speed
+  cout << speed << endl;
+  
+  // publishes the speed to the Velocity topic
   Velocity_pub.publish(speed);
 }
 
-
-void CurrPose(const geometry_msgs::Pose2D::ConstPtr& msg)
+double Error()
 {
-  CurrPose.x = msg -> x;
-  CurrPose.y = msg -> y;
-  CurrPose.theta = msg -> theta;
-} 
+  return CURRENT.x - d0;
+}
+
+void CurrPose(const geometry_msgs::Pose::ConstPtr& msg)
+{
+  CURRENT.x = msg -> x;
+  CURRENT.y = msg -> y;
+  CURRENT.theta = msg -> theta;
+}
+

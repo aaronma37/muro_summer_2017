@@ -205,8 +205,6 @@ add_executable(squirtle_use_surf_robot src/squirtle_use_surf_robot)
 target_link_libraries(squirtle_use_surf_robot ${catkin_LIBRARIES})
 add_dependencies(squirtle_use_surf_robot squirtle_use_surf_generate_messages_cpp)
 
-include_directories(include ${catkin_INCLUDE_DIRS})
-
 add_executable(squirtle_use_surf_control src/squirtle_use_surf_control)
 target_link_libraries(squirtle_use_surf_control ${catkin_LIBRARIES})
 add_dependencies(squirtle_use_surf_control squirtle_use_surf_generate_messages_cpp)
