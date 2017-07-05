@@ -1,3 +1,4 @@
+#include <iostream>
 #include "ros/ros.h"
 #include "geometry_msgs/Pose2D.h"
 #include "turtlesim/Pose.h"
@@ -22,10 +23,9 @@ int main(int argc, char **argv)
    // assigns the constant for the controller
    cout << "What constant value would you like? "; 
    cin >> cVal;
-   
    cout << cVal << endl;
    
-   // connects to roscore
+   // runs roscore
    ros::init(argc, argv, "squirtle_use_surf");
    
    // node object declaration
@@ -35,10 +35,10 @@ int main(int argc, char **argv)
    ros::Subscriber DesPose_sub = n.subscribe("/turtle1/PositionCommand", 5, DesiredPose);
    
    // Subscriber to obtain current position
-   ros::Subscriber CurPose_sub = n.subscribe("/turtle1/pose", 5, CurrentPose);
+   ros::Subscriber CurPose_sub = n.subscribe("/turtle1/Pose", 5, CurrentPose);
    
    // Publisher to send command velocity
-   ros::Publisher Twist_pub = n.advertise<geometry_msgs::Twist>("/turtle1/cmd_vel", 100);
+   ros::Publisher Twist_pub = n.advertise<geometry_msgs::Vector3>("/turtle1/cmd_vel", 100);
    
    // Loop Frequency (Hz)
    ros::Rate rate(15);
@@ -72,7 +72,7 @@ void DesiredPose(const geometry_msgs::Pose2D::ConstPtr& msg)
    STOP = false;
    DESIRED.x = msg->x;
    DESIRED.y = msg->y;
-   VEL.angular += 1;
+   VEL.linear = 1;
    return;
 }
 

@@ -1,0 +1,22 @@
+#include <iostream>
+#include "ros/ros.h"
+#include "geometry_msgs/Twist.h"
+#include "geometry_msgs/Pose2D.h"
+using namespace std;
+
+int main(int argc, char **argv)
+{
+  ros::init(argc, argv, "Control");
+  
+  ros::NodeHandle n;
+  
+  // Subscribes to robot's position
+  ros::Subscriber Pose_sub = n.subscribe("Pose", 100
+  
+  // Publishes robot's velocity
+  ros::Publisher Velocity_pub = n.advertise<geometry_msgs::Twist>("Velocity", 100);
+  
+  //loop rate
+  ros::Rate rate(10);
+  
+  

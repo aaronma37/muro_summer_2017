@@ -1,19 +1,18 @@
 #include <iostream>
 #include "ros/ros.h"
 #include "geometry_msgs/Pose2D.h"
-#include "turtlesim/Pose.h"
 #include "geometry_msgs/Twist.h"
 ros::Publisher velocity_publisher;
 using namespace std;
 
 // function prototypes
 void DesiredPose(const geometry_msgs::Pose2D::ConstPtr& msg);
-void CurrentPose(const turtlesim::Pose::ConstPtr& msg);
+void CurrentPose(const geometry_msgs::Pose2D::ConstPtr& msg);
 
 // global variables
 bool STOP = true;
 geometry_msgs::Twist	VEL;
-geometry_msgs::Pose2D	DESIRED;
+geometry_msgs::Pose2D	DESIRED, CURRENT;
 
 int main(int argc, char **argv)
 { 
@@ -31,7 +30,7 @@ int main(int argc, char **argv)
    ros::NodeHandle n;
    
    // Subscriber to obtain desired position commands   
-   ros::Subscriber DesPose_sub = n.subscribe("/turtle1/PositionCommand", 5, DesiredPose);
+   ros::Subscriber DesPose_sub = n.subscribe("Pose", 5, DesiredPose);
    
    // Subscriber to obtain current position
    ros::Subscriber CurPose_sub = n.subscribe("/turtle1/Pose", 5, CurrentPose);
