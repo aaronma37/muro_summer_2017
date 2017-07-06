@@ -1,1 +1,1 @@
-float32 x
+float64 x
