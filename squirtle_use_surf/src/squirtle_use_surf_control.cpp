@@ -15,7 +15,7 @@ ros::Publisher  Velocity_pub;
 double 		d0;
 double		k;
 geometry_msgs::Pose CURRENT;
-
+geometry_msgs::Twist VELOCITY;
 int main(int argc, char **argv)
 {
   // runs roscore
@@ -60,22 +60,17 @@ void Speed()
   double speed;
   
   // calls the Error function and catches the return value
-  errorVal = Error();
+  errorVal = CURRENT.x - d0;
   cout << errorVal << endl;
   
   // calculates the speed based on the velocity
   speed = k * errorVal;      
-  
+  VELOCITY.linear.x = speed;
   // displays speed
   cout << speed << endl;
   
   // publishes the speed to the Velocity topic
-  Velocity_pub.publish(speed);
-}
-
-double Error()
-{
-  return CURRENT.x - d0;
+  Velocity_pub.publish(VELOCITY);
 }
 
 void CurrPose(const geometry_msgs::Pose::ConstPtr& msg)
@@ -83,5 +78,6 @@ void CurrPose(const geometry_msgs::Pose::ConstPtr& msg)
   CURRENT.x = msg -> x;
   CURRENT.y = msg -> y;
   CURRENT.theta = msg -> theta;
+  
 }
 
