@@ -12,6 +12,7 @@ find_package(catkin REQUIRED COMPONENTS
   rospy
   std_msgs
   turtlesim
+  genmsg
 )
 
 ## System dependencies are found with CMake's conventions
@@ -47,12 +48,16 @@ find_package(catkin REQUIRED COMPONENTS
 ##   * uncomment the generate_messages entry below
 ##   * add every package in MSG_DEP_SET to generate_messages(DEPENDENCIES ...)
 
+## Declare Ros messages and services
+add_message_files(DIRECTORY msg FILES Robot.msg)
+add_message_files(DIRECTORY msg FILES Control.msg)
+
 ## Generate messages in the 'msg' folder
-# add_message_files(
-#   FILES
-#   Message1.msg
-#   Message2.msg
-# )
+add_message_files(
+   FILES
+   Robot.msg
+   Control.msg
+ )
 
 ## Generate services in the 'srv' folder
 # add_service_files(
@@ -69,10 +74,12 @@ find_package(catkin REQUIRED COMPONENTS
 # )
 
 ## Generate added messages and services with any dependencies listed here
-# generate_messages(
-#   DEPENDENCIES
-#   std_msgs
-# )
+   generate_messages(
+   DEPENDENCIES
+   std_msgs
+)
+
+catkin_package()
 
 ################################################
 ## Declare ROS dynamic reconfigure parameters ##
@@ -106,7 +113,7 @@ find_package(catkin REQUIRED COMPONENTS
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES squirtle_use_surf
-#  CATKIN_DEPENDS roscpp rospy std_msgs turtlesim
+   CATKIN_DEPENDS message_runtime roscpp rospy std_msgs turtlesim
 #  DEPENDS system_lib
 )
 
@@ -116,10 +123,7 @@ catkin_package(
 
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
-include_directories(
-# include
-  ${catkin_INCLUDE_DIRS}
-)
+include_directories(include ${catkin_INCLUDE_DIRS})
 
 ## Declare a C++ library
 # add_library(${PROJECT_NAME}
@@ -201,13 +205,13 @@ include_directories(
 
 include_directories(include ${catkin_INCLUDE_DIRS})
 
-add_executable(squirtle_use_surf_robot src/squirtle_use_surf_robot)
+add_executable(squirtle_use_surf_robot src/squirtle_use_surf_robot.cpp)
 target_link_libraries(squirtle_use_surf_robot ${catkin_LIBRARIES})
 add_dependencies(squirtle_use_surf_robot squirtle_use_surf_generate_messages_cpp)
 
 include_directories(include ${catkin_INCLUDE_DIRS})
 
-add_executable(squirtle_use_surf_control src/squirtle_use_surf_control)
+add_executable(squirtle_use_surf_control src/squirtle_use_surf_control.cpp)
 target_link_libraries(squirtle_use_surf_control ${catkin_LIBRARIES})
 add_dependencies(squirtle_use_surf_control squirtle_use_surf_generate_messages_cpp)
 
