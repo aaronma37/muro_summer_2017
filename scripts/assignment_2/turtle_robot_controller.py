@@ -4,7 +4,7 @@ from geometry_msgs.msg import Twist
 from turtlesim.msg import Pose
 from math import pow,atan2,sqrt,pi
 
-#This program moves a diferential WMR robot to a specified coordinate in xy frame
+#This program moves a differential WMR robot to a specified coordinate in xy frame
 #using a simple proportional controller for linear and angular velocity of the robot
 #The theory of this controller is detailed in [1] and a python example is shown
 # in http://wiki.ros.org/turtlesim/Tutorials/Go%20to%20Goal
