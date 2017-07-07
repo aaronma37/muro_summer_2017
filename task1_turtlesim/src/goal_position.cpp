@@ -35,8 +35,9 @@ void robo_move(turtlesim::Pose goal_position, double k){
 		position_publisher.publish(u_msg); //publishes the message to the robot
 		cout << "The actual X position is: " << Actual_Pose.x << endl;
 		cout << "the actual Y position is: " << Actual_Pose.y << endl; 
-		ros::spinOnce();
 		loop_rate.sleep();
+		ros::spinOnce();
+		
 	}while(distanceToGoal(Actual_Pose.x, Actual_Pose.y, goal_position.x, goal_position.y) >= 0.5); // repeat until it gets within 0.5 units
 
 	u_msg.linear.x = 0; // forces the robot to stop moving 
@@ -48,7 +49,7 @@ void robo_move(turtlesim::Pose goal_position, double k){
 
 int main(int argc, char **argv)
 {
-	ros::init(argc,argv,"task1"); 
+	ros::init(argc,argv,"goal_position"); 
 	ros::NodeHandle n;
 	position_publisher = n.advertise<geometry_msgs::Twist>("/turtle1/cmd_vel",1000);
 	// publisher to be able to publis messages in order to move the robot
@@ -69,8 +70,9 @@ int main(int argc, char **argv)
 	goal_position.y = y_goal; 
 	goal_position.theta = 0;
 	robo_move(goal_position, 0.5); //k = 0.01
-	loop_rate.sleep()
+	loop_rate.sleep();
 	ros::spin();
 
 	return 0;
 }
+

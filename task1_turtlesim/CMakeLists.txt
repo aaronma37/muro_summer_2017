@@ -127,9 +127,8 @@ include_directories(
 #   src/${PROJECT_NAME}/task1_turtlesim.cpp
 # )
 
-add_executable(task1_summer2017_node src/task1_summer2017.cpp)
-target_link_libraries(task1_summer2017_node  ${catkin_LIBRARIES})
-
+add_executable(goal_position_node src/goal_position.cpp)
+target_link_libraries(goal_position_node  ${catkin_LIBRARIES})
 
 
 ## Add cmake target dependencies of the library
