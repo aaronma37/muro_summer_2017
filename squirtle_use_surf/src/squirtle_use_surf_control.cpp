@@ -12,8 +12,7 @@ double Error();
 void CurrPose(const squirtle_use_surf::Robot::ConstPtr& msg);
 squirtle_use_surf::Control VELOCITY;
 squirtle_use_surf::Robot   CURRENT;
-bool first;
-// global variables
+bool first = true;
 ros::Subscriber Pose_sub;
 ros::Publisher  Velocity_pub;
 double 		d0;

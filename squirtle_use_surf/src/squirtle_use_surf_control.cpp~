@@ -12,7 +12,7 @@ double Error();
 void CurrPose(const squirtle_use_surf::Robot::ConstPtr& msg);
 squirtle_use_surf::Control VELOCITY;
 squirtle_use_surf::Robot   CURRENT;
-bool first;
+bool first = true;
 // global variables
 ros::Subscriber Pose_sub;
 ros::Publisher  Velocity_pub;
@@ -38,7 +38,7 @@ int main(int argc, char **argv)
   Pose_sub = n.subscribe("Pose", 100, CurrPose);
   
   // Publishes robot's velocity
-  Velocity_pub = n.advertise<squirtle_use_surf::Control>("Velocity", 100);
+  Velocity_pub = n.advertise<squi rtle_use_surf::Control>("Velocity", 100);
 
   // Loop rate
   ros::Rate rate(10);
@@ -63,6 +63,7 @@ void Speed()
    if(first)
 	{
 	VELOCITY.u = 0;
+        CURRENT.x = 0;
         first = false;
         }
   // calls the Error function and catches the return value
