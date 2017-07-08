@@ -13,7 +13,7 @@ find_package(catkin REQUIRED COMPONENTS
   rospy
   std_msgs
   turtlesim
-message_generation
+  genmsg
 )
 
 ## System dependencies are found with CMake's conventions
@@ -49,10 +49,13 @@ message_generation
 ##   * uncomment the generate_messages entry below
 ##   * add every package in MSG_DEP_SET to generate_messages(DEPENDENCIES ...)
 
+## Declare ROS messages and services
+   #add_message_files(DIRECTORY msg FILES use_surf.msg)
+
 ## Generate messages in the 'msg' folder
  #add_message_files(
   # FILES
-   #Message1.msg
+   #use_surf.msg
    #Message2.msg
  #)
 
@@ -71,10 +74,10 @@ message_generation
 # )
 
 ## Generate added messages and services with any dependencies listed here
- #generate_messages(
-  # DEPENDENCIES
-   #geometry_msgs   std_msgs  turtlesim
-# )
+ generate_messages(
+ DEPENDENCIES
+ geometry_msgs   std_msgs  turtlesim
+ )
 
 
 
@@ -109,9 +112,9 @@ message_generation
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
   INCLUDE_DIRS include
-  #LIBRARIES blastoise_use_surf
-  CATKIN_DEPENDS geometry_msgs roscpp rospy std_msgs turtlesim
-  #DEPENDS system_lib
+  LIBRARIES blastoise_use_surf
+  CATKIN_DEPENDS geometry_msgs roscpp rospy std_msgs turtlesim message_runtime
+  DEPENDS system_lib
 )
 
 ###########
@@ -121,7 +124,7 @@ catkin_package(
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
 include_directories(
- #include
+ include
   ${catkin_INCLUDE_DIRS}
 )
 
@@ -154,6 +157,12 @@ include_directories(
 # target_link_libraries(${PROJECT_NAME}_node
 #   ${catkin_LIBRARIES}
 # )
+
+
+
+add_executable(Use_Surf src/Use_Surf.cpp)
+target_link_libraries(Use_Surf ${catkin_LIBRARIES})
+add_dependencies(Use_Surf blastoise_use_surf_generate_messages_cpp)
 
 #############
 ## Install ##
@@ -203,14 +212,6 @@ include_directories(
 ## Add folders to be run by python nosetests
 # catkin_add_nosetests(test)
 
-include_directories(include ${catkin_INCLUDE_DIRS})
 
-add_executable(Blastoise src/Blastoise.cpp)
-target_link_libraries(Blastoise ${catkin_LIBRARIES})
-add_dependencies(Blastoise blastoise_use_surf_gencpp)
 
-include_directories(include ${catkin_INCLUDE_DIRS})
 
-add_executable(Use_Surf src/Use_Surf.cpp)
-target_link_libraries(Use_Surf ${catkin_LIBRARIES})
-add_dependencies(Use_Surf blastoise_use_surf_gencpp)

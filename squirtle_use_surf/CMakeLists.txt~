@@ -49,8 +49,8 @@ find_package(catkin REQUIRED COMPONENTS
 ##   * add every package in MSG_DEP_SET to generate_messages(DEPENDENCIES ...)
 
 ## Declare Ros messages and services
-add_message_files(DIRECTORY msg Robot.msg)
-add_message_files(DIRECTORY msg Control.msg)
+add_message_files(DIRECTORY msg FILES Robot.msg)
+add_message_files(DIRECTORY msg FILES Control.msg)
 
 ## Generate messages in the 'msg' folder
 add_message_files(
@@ -123,10 +123,7 @@ catkin_package(
 
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
-include_directories(
-include
-  ${catkin_INCLUDE_DIRS}
-)
+include_directories(include ${catkin_INCLUDE_DIRS})
 
 ## Declare a C++ library
 # add_library(${PROJECT_NAME}
