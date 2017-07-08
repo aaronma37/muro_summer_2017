@@ -18,6 +18,7 @@ geometry_msgs::Twist VEL;
 
 double      CONST;
 double      DEST;
+double	    ORIGIN;
 double      CURRENT;
 int main (int argc, char **argv)
 {
@@ -58,7 +59,7 @@ int main (int argc, char **argv)
 void PoseCallback(const turtlesim::Pose::ConstPtr& msg)
 {
         POSE.x = msg -> x;
-	CURRENT = POSE.x - 5.5;
+	CURRENT = POSE.x - 5.5
         cout << "Position: " << CURRENT << endl;
 }
 
