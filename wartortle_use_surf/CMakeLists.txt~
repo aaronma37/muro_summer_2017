@@ -202,5 +202,5 @@ include_directories(
 # catkin_add_nosetests(test)
 
 add_executable(Wartortle_Use_Surf src/Wartortle_Use_Surf.cpp)
-target_link_libraries(Wartortle_Use_Surf ${catkin_LIBRARIES})
+target_link_libraries(Wartorle_Use_Surf ${catkin_LIBRARIES})
 add_dependencies(Wartortle_Use_Surf wartortle_use_surf_generate_messages_cpp)
