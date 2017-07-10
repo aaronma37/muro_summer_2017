@@ -88,7 +88,7 @@ void Linear()
 
 void Angular()
 {
-    ANG = atan(Y2/X2) - POSE.theta;
+    ANG = atan(Y2/X2) - atan(Y1/X1);
     ANG = KA * ANG;
     VEL.angular.x = 0;
     VEL.angular.y = 0;
