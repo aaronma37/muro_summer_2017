@@ -7,6 +7,7 @@ Victor Gandarillas <vgandari@eng.ucsd.edu>
 Date       | Modification
 ---------- | ------------------------------------------------------------------------------------------------------------------
 2017.02.23 | Initial Release
+2017.07.10 | Added note about using this guide vs NanoPi Neo guide
 
 This guide is based on the [Raspberry Pi software Guide](https://www.raspberrypi.org/learning/software-guide/).
 
@@ -19,30 +20,32 @@ This guide is based on the [Raspberry Pi software Guide](https://www.raspberrypi
 4. Remove partitions from SD card and format as MBR. Make sure to overwrite existing data (slow). **_CAUTION:_** IT IS OF VITAL IMPORTANCE THAT YOU CHOOSE THE CORRECT DRIVE. WITH ADMINISTRATOR PRIVILEGES, IT IS POSSIBLE TO FORMAT ALL THE NON BOOTABLE PARTITIONS ON THE MAIN DRIVE. DON'T DO THIS.
 5. Restore disk image using gear icon at top right of Disks window.
 
-## Initializing NanoPi Neo After Installing Ubuntu-core
+## Initializing Raspberry Pi After Installing Ubuntu-core
 
-**_NOTE:_** Go to [Initializing NanoPi Neo After Setting Up Connections and Static IP](#initializing-nanopi-neo-after-setting-up-connections-and-static-ip) if NanoPiNeo is set up to establish connections on its own.
+**_NOTE:_** Go to [Initializing Raspberry Pi After Setting Up Connections and Static IP](#initializing-nanopi-neo-after-setting-up-connections-and-static-ip) if NanoPiNeo is set up to establish connections on its own.
 
-1. Insert mini-SD card into NanoPi Neo. **_NOTE:_** mini-SD card must be in NanoPi Neo _before_ power is applied.
+1. Insert mini-SD card into Raspberry Pi. **_NOTE:_** mini-SD card must be in Raspberry Pi _before_ power is applied.
 2. Plug in antenna dongle into desktop, connect to dronenet
 3. Connect NanoPi to router via Ethernet
-4. Plug in grey dongle into NanoPi Neo
-5. Connect laptop to router. Connect to dronenet via Ethernet and UCSD-PROTECTED via WiFi. This will enable you to connect the NanoPi Neo to the internet and download ROS. **_NOTE:_** Internet access on NanoPi Neo lasts until laptop goes to sleep.
-6. Plug in NanoPi Neo USB cable for power.
+4. Plug in grey dongle into Raspberry Pi
+5. Connect laptop to router. Connect to dronenet via Ethernet and UCSD-PROTECTED via WiFi. This will enable you to connect the Raspberry Pi to the internet and download ROS. **_NOTE:_** Internet access on Raspberry Pi lasts until laptop goes to sleep.
+6. Plug in Raspberry Pi USB cable for power.
 7. Go to <http://192.168.0.1/> in desktop browser
 8. username: admin, password: admin
-9. Verify that NanoPi Neo shows up in list of wired clients (MAC Address: FA:BE:6A:EF:51:3F).
-10. Write down NanoPi Neo IP address (e.g. 192.168.0.113)
-11. `ssh` into NanoPi Neo:
+9. Verify that Raspberry Pi shows up in list of wired clients (MAC Address: FA:BE:6A:EF:51:3F).
+10. Write down Raspberry Pi IP address (e.g. 192.168.0.113)
+11. `ssh` into Raspberry Pi:
 
 ```
 ssh root@192.168.0.XXX
-password: fa
+password: ??
 
 The authenticity of host '192.168.0.XXX (192.168.0.XXX)' can't be established.
 ECDSA key fingerprint is XX:XX:XX:XX:XX:XX:XX:XX:XX:XX:XX:XX:XX:XX:XX:XX.
 Are you sure you want to continue connecting (yes/no)? yes
 ```
+
+**_CAUTION:_** From this point on, this guide is really for the NanoPi Neo, not the Raspberry Pi.
 
 ## Test Internet Connection
 
@@ -248,7 +251,7 @@ Sending on   Socket/fallback
 DHCPRELEASE on wlan0 to 192.168.0.1 port 67 (xid=0x1783018d)
 ```
 
-Close ssh connection. Shut down (disconnect USB power) NanoPi Neo and disconnect Ethernet cable. Reboot (connect USB power) NanoPi Neo and check network for wireless clients. NanoPi Neo should automatically connect to dronenet via WiFi.
+Close ssh connection. Shut down (disconnect USB power) Raspberry Pi and disconnect Ethernet cable. Reboot (connect USB power) Raspberry Pi and check network for wireless clients. Raspberry Pi should automatically connect to dronenet via WiFi.
 
 ## Configure Static IP
 
@@ -301,21 +304,21 @@ $ ifconfig
 ~~~~
 
 
-<!-- ## Initializing NanoPi Neo After Setting Up Connections and Static IP -->
+<!-- ## Initializing Raspberry Pi After Setting Up Connections and Static IP -->
 
- ## Initializing NanoPi Neo After Setting Up Connections
+ ## Initializing Raspberry Pi After Setting Up Connections
 
-**_NOTE:_** Go to [Initializing NanoPi Neo After Installing Ubuntu-core](#initializing-nanopi-neo-after-installing-ubuntu-core) if NanoPiNeo is not set up to establish connections on its own.
+**_NOTE:_** Go to [Initializing Raspberry Pi After Installing Ubuntu-core](#initializing-nanopi-neo-after-installing-ubuntu-core) if NanoPiNeo is not set up to establish connections on its own.
 
-1. Insert mini-SD card into NanoPi Neo. **_NOTE:_** mini-SD card must be in NanoPi Neo before power is applied.
+1. Insert mini-SD card into Raspberry Pi. **_NOTE:_** mini-SD card must be in Raspberry Pi before power is applied.
 2. Plug in antenna dongle into desktop, connect to dronenet
-3. Plug in grey dongle into NanoPi Neo
-4. Connect laptop to router. Connect to dronenet via Ethernet and UCSD-PROTECTED via WiFi. This will enable you to connect the NanoPi Neo to the internet and download ROS. **_NOTE:_** Internet access on NanoPi Neo lasts until laptop goes to sleep.
-5. Plug in NanoPi Neo USB cable for power.
+3. Plug in grey dongle into Raspberry Pi
+4. Connect laptop to router. Connect to dronenet via Ethernet and UCSD-PROTECTED via WiFi. This will enable you to connect the Raspberry Pi to the internet and download ROS. **_NOTE:_** Internet access on Raspberry Pi lasts until laptop goes to sleep.
+5. Plug in Raspberry Pi USB cable for power.
 6. Go to <http://192.168.0.1/> in desktop browser
 7. username: admin, password: admin
-8. Verify that NanoPi Neo/FriendlyARM shows up in list of wireless clients.
-9. `ssh` into NanoPi Neo/FriendlyARM:
+8. Verify that Raspberry Pi/FriendlyARM shows up in list of wireless clients.
+9. `ssh` into Raspberry Pi/FriendlyARM:
 
 ```
 $ ssh root@192.168.0.XXX
@@ -345,7 +348,7 @@ $ sudo apt-get update
 
 ## References
 
-- [NanoPi Neo Wiki](http://wiki.friendlyarm.com/wiki/index.php/NanoPi_NEO)
+- [Raspberry Pi Wiki](http://wiki.friendlyarm.com/wiki/index.php/NanoPi_NEO)
 - [Set up static IP](https://www.howtoforge.com/linux-basics-set-a-static-ip-on-ubuntu)
 - [Kinetic Installation](http://wiki.ros.org/kinetic/Installation/Ubuntu)
 - [ROS Mirrors](http://wiki.ros.org/ROS/Installation/UbuntuMirrors)
