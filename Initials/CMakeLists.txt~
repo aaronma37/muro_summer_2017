@@ -200,3 +200,21 @@ include_directories(
 
 ## Add folders to be run by python nosetests
 # catkin_add_nosetests(test)
+
+include_directories(include ${catkin_INCLUDE_DIRS})
+
+add_executable(Initials1 src/Initials1.cpp)
+target_link_libraries(Initials1 ${catkin_LIBRARIES})
+add_dependencies(Initials1 Initials_generate_messages_cpp)
+
+add_executable(Initials2 src/Initials2.cpp)
+target_link_libraries(Initials2 ${catkin_LIBRARIES})
+add_dependencies(Initials2 Initials_generate_messages_cpp)
+
+add_executable(Spawn src/Spawn.cpp)
+target_link_libraries(Spawn ${catkin_LIBRARIES})
+add_dependencies(Spawn Initials_generate_messages_cpp)
+
+add_executable(Initials4 src/Initials4.cpp)
+target_link_libraries(Initials4 ${catkin_LIBRARIES})
+add_dependencies(Initials4 Initials_generate_messages_cpp)

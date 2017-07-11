@@ -16,7 +16,6 @@ ros::Subscriber POSE_SUB;
 turtlesim::Pose POSE;
 geometry_msgs::Twist VEL;
 
-double      CONST;
 double      DEST;
 double      CURRENT;
 int main (int argc, char **argv)
@@ -31,10 +30,6 @@ int main (int argc, char **argv)
     cout << "What is your reference value? ";
     cin >> DEST;
 
-    // prompts user for the corresponding proportionality constant
-    cout << "What is your constant? ";
-    cin >> CONST;
-
     // subscribes to the pose topic
     POSE_SUB = n.subscribe("/turtle1/pose", 1000, PoseCallback);
 
@@ -42,7 +37,7 @@ int main (int argc, char **argv)
     VEL_PUB = n.advertise<geometry_msgs::Twist>("/turtle1/cmd_vel",1000);
 
     // loop frequency (Hz)
-    ros::Rate rate(1);
+    ros::Rate rate(10);
 
     // receive callbacks, calculates & publishes velocity
     while(ros::ok())
@@ -65,7 +60,7 @@ void PoseCallback(const turtlesim::Pose::ConstPtr& msg)
 void Speed()
 {
         double      speed;
-        speed = CONST * (DEST - CURRENT);
+        speed = 0.2 * (DEST - CURRENT);
         VEL.linear.x = speed;
         VEL_PUB.publish(VEL);
         cout << "Velocity: " << speed << endl ;

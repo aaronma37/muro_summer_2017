@@ -2,14 +2,12 @@
 #include <iostream>
 #include "turtlesim/Pose.h"
 #include "geometry_msgs/Twist.h"
-#include "turtlesim/Spawn.h"
 using namespace std;
 
 void PoseCallback(const turtlesim::Pose::ConstPtr& msg);
 
 ros::Publisher VEL_PUB;
 ros::Subscriber POSE_SUB;
-turtlesim::Spawn SPAWN;
 turtlesim::Pose POSE;
 geometry_msgs::Twist VEL;
 
@@ -17,24 +15,23 @@ geometry_msgs::Twist VEL;
 
 int main(int argc, char **argv)
 {
-        ros::init(argc, argv, "Initial1");
+        ros::init(argc, argv, "Initials1");
                 
         ros::NodeHandle n;
         
-        ros::service::waitForService("spawn");
-        ros::ServiceClient add_turtle = n.serviceClient<turtlesim::Spawn>("spawn");
-        SPAWN.request.x = 4;
-        SPAWN.request.y = 4;
-        SPAWN.request.theta = 180;
-        add_turtle.call(SPAWN);
         POSE_SUB = n.subscribe("/turtle1/pose",1000,PoseCallback);
         VEL_PUB = n.advertise<geometry_msgs::Twist>("/turtle1/cmd_vel", 1000);
-        ros::Rate rate(10);
         
+        
+        ros::Rate rate(10);     
+
         while(ros::ok())
                 {
                 ros::spinOnce();
                 rate.sleep();
+                VEL.linear.x = -1;
+                VEL_PUB.publish(VEL);
+                    
                 }
         return 0;
 }
@@ -46,5 +43,8 @@ void PoseCallback(const turtlesim::Pose::ConstPtr& msg)
         POSE.theta = msg -> theta;
 }
 
-
+void C_Movement()
+{
+        
+}
 
