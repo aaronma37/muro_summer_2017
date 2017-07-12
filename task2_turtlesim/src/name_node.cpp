@@ -228,20 +228,20 @@ int main(int argc, char **argv)
 
 	Tposition_publisher = n.advertise<geometry_msgs::Twist>("/turtle2/cmd_vel",1000);
 	// publisher to be able to publis messages in order to move the obot
-	Tposition_subscriber = n.subscribe("/turtle2/pose",10,TpositionCallback); 
+	Tposition_subscriber = n.subscribe("/turtle2/pose",100,TpositionCallback); 
 	// subscriber in order to know the actual position of the robot
 
 	Oposition_publisher = n.advertise<geometry_msgs::Twist>("/turtle1/cmd_vel",1000);
 	// publisher to be able to publis messages in order to move the obot
-	Oposition_subscriber = n.subscribe("/turtle1/pose",10,OpositionCallback); 
+	Oposition_subscriber = n.subscribe("/turtle1/pose",100,OpositionCallback); 
 
 	Mposition_publisher = n.advertise<geometry_msgs::Twist>("/turtle3/cmd_vel",1000);
 	// publisher to be able to publis messages in order to move the obot
-	Mposition_subscriber = n.subscribe("/turtle3/pose",10,MpositionCallback); 
+	Mposition_subscriber = n.subscribe("/turtle3/pose",100,MpositionCallback); 
 
 	M2position_publisher = n.advertise<geometry_msgs::Twist>("/turtle4/cmd_vel",1000);
 	// publisher to be able to publis messages in order to move the obot
-	M2position_subscriber = n.subscribe("/turtle4/pose",10,M2positionCallback);
+	M2position_subscriber = n.subscribe("/turtle4/pose",100,M2positionCallback);
 
 	ros::Rate loop_rate(1000);
 	// takes the input and moves the robot to that location
