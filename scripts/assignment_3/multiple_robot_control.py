@@ -14,12 +14,12 @@ class robot():
         self.y = y
         self.theta = theta
         #limit values
-        self.lin_velocity_limit = 3
+        self.lin_velocity_limit = 6
         self.steering_ang_limit = pi
         self.d_tolerance = 0.1
         self.a_tolerance = 0.001
         #define porportional gains
-        self.Kp_vel = 0.8
+        self.Kp_vel = 3
         self.Kp_theta = 5
         #generic flags
         self.flag = 0

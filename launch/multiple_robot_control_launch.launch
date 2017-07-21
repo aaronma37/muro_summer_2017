@@ -1,11 +1,7 @@
 <launch>
-
-  <group ns="turtlesim">
+  
     <node pkg="turtlesim" name="sim" type="turtlesim_node"/>
-  </group>
-
-  <group ns="multiple_R">
-    <node pkg="muro_summer_2017" name="MRT_controller" type="multiple_robot_control.py" output="screen"/>
-  </group>
+ 
+    <node pkg="muro_summer_2017" name="MRT" type="multiple_robot_control.py" output="screen"/>
 
 </launch>
