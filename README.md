@@ -8,4 +8,6 @@ edit the " CParam.readFromXMLFile("/home/alec/catkin_ws/src/aruco_localization-m
 
 camera_old.yml is the calibration file
 
+to run use "roslaunch aruco_localization usb_cam.launch"
+
 
